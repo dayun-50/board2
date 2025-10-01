@@ -5,12 +5,21 @@
   
   <mapper namespace="Users">
   
-  <insert id="insert">
-  	insert into users values(users_seq.nextval, #{id}, #{pw}, #{name}, #{phone}, #{email})
-  </insert>
+  	<insert id="insert">
+  		insert into users values(users_seq.nextval, #{id}, #{pw}, #{name}, #{phone}, #{email})
+  	</insert>
   
-  <select id="login" resultType="String">
-  	select name from users where id= #{id} and pw = #{pw}
-  </select>
+
+	<select id="loginCheck" parameterType="com.kedu.study.users.UsersDTO" resultType="String">
+		SELECT name FROM users WHERE id = #{id} AND pw = #{pw}
+	</select>
+	
+	<select id="selectAllByName" parameterType="com.kedu.study.users.UsersDTO" resultType="com.kedu.study.users.UsersDTO">
+		select id, pw, name, phone, email from users where name = #{name}
+	</select>
+  
+  	<delete id="deleteByname">
+  		delete from users where name = #{name}
+  	</delete>
   
   </mapper>
